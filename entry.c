@@ -22,9 +22,6 @@ int entry(int argc, char **argv) {
         serial_debug("argv[%d] = %s\n", i, new_argv[i]);
     }
 
-    // init bordel
-    init_bordel();
-
     // call main and setup exit
     int val;
 
