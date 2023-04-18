@@ -35,6 +35,22 @@ unsigned long long __udivdi3(unsigned long long num, unsigned long long den) {
     return quot;
 }
 
+// __divdi3 definition
+signed long long __divdi3(signed long long num, signed long long den) {
+    int neg = 0;
+
+    if (num < 0) {
+        num = -num;
+        neg = !neg;
+    }
+    if (den < 0) {
+        den = -den;
+        neg = !neg;
+    }
+
+    return neg ? -__udivdi3(num, den) : __udivdi3(num, den);
+}
+
 // __umoddi3 definition
 unsigned long long __umoddi3(unsigned long long num, unsigned long long den) {
     if (den == 0) {
@@ -290,13 +306,6 @@ void serial_debug(char *fmt, ...) {
     free(char_buffer);
 }
 
-void *memcpy(void *dest, const void *src, size_t n) {
-    for (int i = 0; i < n; i++) {
-        ((uint8_t *) dest)[i] = ((uint8_t *) src)[i];
-    }
-    return dest;
-}
-
 int fputs(const char *s, FILE *stream) {
     if (stream == stdout) {
         c_kprint((char *) s);
@@ -320,6 +329,20 @@ int fputc(int c, FILE *stream) {
     // use fwrite to save the file content
     fwrite(s, 1, 1, stream);
     return 0;
+}
+
+int isspace(int c) {
+    if (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f' || c == '\v') {
+        return 1;
+    }
+    return 0;
+}
+
+int toupper(int c) {
+    if (c >= 'a' && c <= 'z') {
+        return c - 32;
+    }
+    return c;
 }
 
 long double strtold(const char *theString, char **end) {
@@ -352,4 +375,10 @@ void SLogMsg(const char * msg, ...) {
 // gettimeofday
 int GetTickCount() {
     return c_timer_get_ms();
+}
+
+int mkdir(const char *pathname, uint32_t mode) {
+    serial_debug("mkdir: %s\n", (char *) pathname);
+    // directory creation is not implemented in FSv2
+    return 0;
 }

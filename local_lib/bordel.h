@@ -58,10 +58,6 @@ struct timezone {
 #undef lseek
 #endif
 
-#ifdef memcpy
-#undef memcpy
-#endif
-
 #ifdef fputs
 #undef fputs
 #endif
@@ -96,17 +92,17 @@ off_t lseek(int fd, off_t offset, int whence);
 
 int unlink(const char *pathname);
 
-void *memcpy(void *dest, const void *src, size_t n);
-
 int fseek(FILE *stream, long offset, int whence);
 FILE *fdopen(int fd, const char *mode);
 
 int fputs(const char *s, FILE *stream);
 int fputc(int c, FILE *stream);
 
+int isspace(int c);
+int toupper(int c);
+
 void SLogMsg(const char *msg, ...);
 
-int GetTickCount(void);
-
+int mkdir(const char *pathname, uint32_t mode);
 
 #endif
