@@ -10,46 +10,59 @@
 
 
 static unsigned char convertToDoomKey(unsigned int key) {
-  return 0;
+    serial_debug("converting key %d to doom key\n", key);
+    return 0;
 }
 
 static void addKeyToQueue(int pressed, unsigned int keyCode) {
-  return;
+    serial_debug("adding key to queue\n");
+    return;
 }
 
 static void handleKeyInput() {
-  return;
+    serial_debug("handling key input\n");
+    return;
 }
 
 
 void DG_Init() {
-  return;
+    return;
 }
 
 void DG_DrawFrame() {
-  return;
+    serial_debug("drawing frame\n");
+    for (int x = 0; x < DOOMGENERIC_RESX; x++) {
+        for (int y = 0; y < DOOMGENERIC_RESY; y++) {
+            c_vesa_set_pixel(x, y, DG_ScreenBuffer[x + y * DOOMGENERIC_RESX]);
+        }
+    }
 }
 
 void DG_SleepMs(uint32_t ms) {
-  return;
+    serial_debug("sleeping for %d ms\n", ms);
+    return;
 }
 
 uint32_t DG_GetTicksMs() {
-  return c_timer_get_ms();
+    serial_debug("getting ticks\n");
+    return c_timer_get_ms();
 }
 
 int DG_GetKey(int* pressed, unsigned char* doomKey) {
-  return 0;
+    serial_debug("getting key\n");
+    return 0;
 }
 
 void DG_SetWindowTitle(const char * title) {
-  return;
+    serial_debug("setting window title\n");
+    return;
 }
 
 int main(int argc, char **argv) {
     doomgeneric_Create(argc, argv);
 
     for (int i = 0; ; i++) {
+        serial_debug("tick %d\n", i);
         doomgeneric_Tick();
     }
 

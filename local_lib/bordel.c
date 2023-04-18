@@ -379,6 +379,53 @@ int GetTickCount() {
 
 int mkdir(const char *pathname, uint32_t mode) {
     serial_debug("mkdir: %s\n", (char *) pathname);
-    // directory creation is not implemented in FSv2
-    return 0;
+
+    int len = strlen((char *) pathname);
+    char *parent_path = malloc(len + 2);
+    char *dir_name = malloc(len + 2);
+
+    if (pathname[len - 1] == '/') {
+        len--;
+    }
+
+    int i = len - 1;
+    while (pathname[i] != '/') i--;
+    int j = 0;
+    while (j < i) {
+        parent_path[j] = pathname[j];
+        j++;
+    }
+    parent_path[j] = '\0';
+    int k = 0;
+    while (j < len) {
+        dir_name[k] = pathname[j];
+        j++;
+        k++;
+    }
+    dir_name[k] = '\0';
+
+    if (parent_path[0] != '/') {
+        char *tmp = malloc(len + 2);
+        strcpy(tmp, "/");
+        strcat(tmp, parent_path);
+        strcpy(parent_path, tmp);
+        free(tmp);
+    }
+
+    if (dir_name[0] == '/') {
+        char *tmp = malloc(len + 2);
+        strcpy(tmp, dir_name + 1);
+        strcpy(dir_name, tmp);
+        free(tmp);
+    }
+
+    serial_debug("parent_path: '%s', dir_name: '%s'\n", parent_path, dir_name);
+
+    // create directory
+    int ret = c_fs_make_dir(parent_path, dir_name);
+
+    free(parent_path);
+    free(dir_name);
+
+    return ret;
 }
