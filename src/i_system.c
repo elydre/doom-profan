@@ -172,6 +172,7 @@ void I_PrintBanner(char *msg)
         putchar(' ');
 
     puts(msg);
+    putchar('\n');
 }
 
 void I_PrintDivider(void)

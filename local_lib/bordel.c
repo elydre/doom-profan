@@ -88,6 +88,7 @@ void init_bordel() {
 }
 
 int open(const char *path, ...) {
+    serial_debug("open: %s\n", path);
     // add the path to the fd_to_path
     int dispo = -1;
     for (int i = 0; i < 256; i++) {
@@ -350,9 +351,39 @@ long double strtold(const char *theString, char **end) {
     return 0;
 }
 
-// fseek
 int fseek(FILE *stream, long offset, int whence) {
-    c_kprint("fseek is not implemented yet...\n");
+    printf("call fseek file: %s, offset: %d, whence: %d\n", stream->filename, offset, whence);
+    // we check if the file is null
+    if (stream == NULL) {
+        printf("stream is null\n");
+        return 0;
+    }
+    // we check the whence
+    switch (whence) {
+        case SEEK_SET:
+            // we check if the offset is valid
+            if (offset < 0 || offset >= stream->buffer_size) {
+                return 0;
+            }
+            // we set the buffer position
+            stream->buffer_pos = offset;
+            printf("set buffer pos to %d\n", stream->buffer_pos);
+            break;
+        case SEEK_CUR:
+            // we set the buffer position
+            stream->buffer_pos += offset;
+            printf("set buffer pos to %d\n", stream->buffer_pos);
+            break;
+        case SEEK_END:
+            // we set the buffer position
+            stream->buffer_pos = stream->buffer_size + offset;
+            printf("set buffer pos to %d\n", stream->buffer_pos);
+            break;
+        default:
+            printf("whence is not valid\n");
+            return 0;
+    }
+    printf("fseek success\n");
     return 0;
 }
 
@@ -364,12 +395,6 @@ FILE *fdopen(int fd, const char * mode) {
     // open file
     FILE *file = fopen(path, mode);
     return file;
-}
-
-// SLogMsg
-void SLogMsg(const char * msg, ...) {
-    c_kprint("SLogMsg is not implemented yet...\n");
-    return;
 }
 
 // gettimeofday

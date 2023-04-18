@@ -6,7 +6,7 @@ LD      = "ld"
 OUTPUT  = "doom-core"
 
 CFLAGS  = "-ffreestanding -fno-exceptions -m32 -I ./profan_zlib -I ./local_lib -Wno-incompatible-pointer-types"
-LDFLAGS = "-T link.ld -z max-page-size=0x1000"
+LDFLAGS = "-T link.ld -z max-page-size=0x10000"
 
 OBJDIR  = "build"
 SRCDIR  = "src"
