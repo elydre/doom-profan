@@ -7,10 +7,25 @@
 #include <syscall.h>
 #include <bordel.h>
 
-uint32_t *current_screen;
+#include <i_libdaube.h>
+
+window_t *window;
+
 
 void DG_Init() {
-    current_screen = calloc(DOOMGENERIC_RESX * DOOMGENERIC_RESY, sizeof(uint32_t));
+    // wake up the parent process
+    c_process_wakeup(c_process_get_ppid(c_process_get_pid()));
+
+    // get the main desktop
+    desktop_t *main_desktop = desktop_get_main();
+
+    // create a window and add an exit button
+    window = window_create(main_desktop, "doom generic", 100, 100, DOOMGENERIC_RESX, DOOMGENERIC_RESY, 0, 0);
+    desktop_refresh(main_desktop);
+
+    // set the window background to black
+    window_fill(window, 0x000000);
+    window_refresh(window);
 }
 
 uint8_t convertToDoomKey(uint8_t scancode) {
@@ -62,13 +77,10 @@ uint8_t convertToDoomKey(uint8_t scancode) {
 
 
 void DG_DrawFrame() {
-    int pos = 0;
+    uint32_t pos = 0;
     for (int y = 0; y < DOOMGENERIC_RESY; y++) {
         for (int x = 0; x < DOOMGENERIC_RESX; x++) {
-            pos++;
-            if (current_screen[pos] == DG_ScreenBuffer[pos]) continue;
-            current_screen[pos] = DG_ScreenBuffer[pos];
-            c_vesa_set_pixel(x, y, DG_ScreenBuffer[pos]);
+            window_set_pixel(window, x, y, DG_ScreenBuffer[pos++]);
         }
     }
 }
