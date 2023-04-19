@@ -69,15 +69,6 @@ unsigned long long __umoddi3(unsigned long long num, unsigned long long den) {
     return num - den;
 }
 
-int strncmp(const char *s1, const char *s2, size_t n) {
-    for (int i = 0; i < n; i++) {
-        if (s1[i] != s2[i]) {
-            return s1[i] - s2[i];
-        }
-    }
-    return 0;
-}
-
 int str_len(char s[]) {
     int i = 0;
     while (s[i] != '\0') i++;

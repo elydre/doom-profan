@@ -22,56 +22,8 @@ static int errno;
 // define jmp_buf type
 typedef int jmp_buf[6];
 
-struct timeval {
-    long tv_sec;
-    long tv_usec;
-};
-
-struct timezone {
-    int tz_minuteswest;
-    int tz_dsttime;
-};
-
-// define off_t type
-#define off_t long
-
-// define size_t type
-#define ssize_t long
-
 #ifdef exit
 #undef exit
-#endif
-
-#ifdef open
-#undef open
-#endif
-
-#ifdef close
-#undef close
-#endif
-
-#ifdef read
-#undef read
-#endif
-
-#ifdef lseek
-#undef lseek
-#endif
-
-#ifdef fputs
-#undef fputs
-#endif
-
-#ifdef strncmp
-#undef strncmp
-#endif
-
-#ifdef unlink
-#undef unlink
-#endif
-
-#ifdef fputc
-#undef fputc
 #endif
 
 // entry.c
@@ -82,26 +34,10 @@ void init_bordel();
 
 void serial_debug(char *fmt, ...);
 
-int strncmp(const char *s1, const char *s2, size_t n);
-long double strtold(const char *theString, char **end);
-
-int open(const char *pathname, ...);
-int close(int fd);
-ssize_t read(int fd, void *buf, size_t count);
-off_t lseek(int fd, off_t offset, int whence);
-
-int unlink(const char *pathname);
-
 int fseek(FILE *stream, long offset, int whence);
-FILE *fdopen(int fd, const char *mode);
-
-int fputs(const char *s, FILE *stream);
-int fputc(int c, FILE *stream);
 
 int isspace(int c);
 int toupper(int c);
-
-void SLogMsg(const char *msg, ...);
 
 int mkdir(const char *pathname, uint32_t mode);
 
