@@ -184,7 +184,6 @@ int toupper(int c) {
 }
 
 int fseek(FILE *stream, long offset, int whence) {
-    printf("call fseek file: %s, offset: %d, whence: %d\n", stream->filename, offset, whence);
     // we check if the file is null
     if (stream == NULL) {
         printf("stream is null\n");
@@ -199,23 +198,18 @@ int fseek(FILE *stream, long offset, int whence) {
             }
             // we set the buffer position
             stream->buffer_pos = offset;
-            printf("set buffer pos to %d\n", stream->buffer_pos);
             break;
         case SEEK_CUR:
             // we set the buffer position
             stream->buffer_pos += offset;
-            printf("set buffer pos to %d\n", stream->buffer_pos);
             break;
         case SEEK_END:
             // we set the buffer position
             stream->buffer_pos = stream->buffer_size + offset;
-            printf("set buffer pos to %d\n", stream->buffer_pos);
             break;
         default:
-            printf("whence is not valid\n");
             return 0;
     }
-    printf("fseek success\n");
     return 0;
 }
 
@@ -260,8 +254,6 @@ int mkdir(const char *pathname, uint32_t mode) {
         strcpy(dir_name, tmp);
         free(tmp);
     }
-
-    serial_debug("parent_path: '%s', dir_name: '%s'\n", parent_path, dir_name);
 
     // create directory
     int ret = c_fs_make_dir(parent_path, dir_name);
