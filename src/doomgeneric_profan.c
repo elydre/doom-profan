@@ -5,6 +5,7 @@
 #include "doomgeneric.h"
 
 #include <syscall.h>
+#include <bordel.h>
 
 uint32_t *current_screen;
 
