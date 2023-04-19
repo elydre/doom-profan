@@ -32,7 +32,7 @@
 #include <direct.h>
 #endif
 #else
-#include <sys/stat.h>
+#include <bordel.h>
 #include <sys/types.h>
 #endif
 

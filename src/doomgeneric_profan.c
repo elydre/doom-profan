@@ -9,22 +9,6 @@
 #define KEYQUEUE_SIZE 16
 
 
-static unsigned char convertToDoomKey(unsigned int key) {
-    serial_debug("converting key %d to doom key\n", key);
-    return 0;
-}
-
-static void addKeyToQueue(int pressed, unsigned int keyCode) {
-    serial_debug("adding key to queue\n");
-    return;
-}
-
-static void handleKeyInput() {
-    serial_debug("handling key input\n");
-    return;
-}
-
-
 void DG_Init() {
     return;
 }

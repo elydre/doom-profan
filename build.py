@@ -5,7 +5,7 @@ LD      = "ld"
 
 OUTPUT  = "doom-core"
 
-CFLAGS  = "-ffreestanding -fno-exceptions -fno-stack-protector -m32 -I ./profan_zlib -I ./local_lib -Wno-incompatible-pointer-types"
+CFLAGS  = "-ffreestanding -fno-exceptions -fno-stack-protector -m32 -I ./profan_zlib -I ./local_lib"
 LDFLAGS = "-T link.ld"
 
 OBJDIR  = "build"
