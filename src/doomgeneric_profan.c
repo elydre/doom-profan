@@ -20,7 +20,7 @@ void DG_Init() {
     desktop_t *main_desktop = desktop_get_main();
 
     // create a window and add an exit button
-    window = window_create(main_desktop, "doom generic", 100, 100, DOOMGENERIC_RESX, DOOMGENERIC_RESY, 0, 0);
+    window = window_create(main_desktop, "doom generic", 100, 100, DOOMGENERIC_RESX, DOOMGENERIC_RESY, 0, 0, 0);
     desktop_refresh(main_desktop);
 
     // set the window background to black
@@ -83,6 +83,7 @@ void DG_DrawFrame() {
             window_set_pixel(window, x, y, DG_ScreenBuffer[pos++]);
         }
     }
+    window_refresh(window);
 }
 
 void DG_SleepMs(uint32_t ms) {
