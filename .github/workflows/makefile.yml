@@ -29,3 +29,4 @@ jobs:
         repo_token: "${{ secrets.GIT_TOKEN }}"
         files: |
           doom.bin
+          doom-core.bin
