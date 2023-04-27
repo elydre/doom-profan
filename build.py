@@ -27,7 +27,7 @@ def compile_file(src, dir = SRCDIR):
     return obj
 
 def link_files(entry, objs, output = OUTPUT):
-    execute_command(f"{LD} {LDFLAGS} -o {output}.pe {entry} {' '.join(objs)} ")
+    execute_command(f"{LD} {LDFLAGS} -o {output}.pe {entry} {' '.join(objs)}")
     execute_command(f"objcopy -O binary {output}.pe {output}.bin")
 
 def main():
@@ -38,7 +38,8 @@ def main():
     entry = compile_file("entry.c", ".")
     link_files(entry, objs)
 
-    link_files(compile_file("doom.c", "."), "", "doom")
+    link_files(compile_file("launcher.c", "."), "", "doom")
+
     execute_command("rm *.pe")
 
 if __name__ == "__main__":

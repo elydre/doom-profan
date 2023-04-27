@@ -15,6 +15,8 @@
 #define c_kprint_rgb(message, color, bg_color) c_rgb_print_at(message, -1, -1, color, bg_color)
 #define c_kprint(message) c_ckprint(message, c_white)
 
+#define c_run_ifexist(path, argc, argv) c_run_ifexist_full(path, argc, argv, 0, 0, 0)
+
 // nothing better than shit code art
 #define hi_func_addr(id) ((int (*)(int)) *(int *)WATFUNC_ADDR)(id)
 
@@ -104,7 +106,7 @@
 #define c_fs_delete_dir ((void (*)(char *)) hi_func_addr(15))
 
 #define c_mem_get_alloc_size ((uint32_t (*)(uint32_t)) hi_func_addr(16))
-#define c_mem_alloc ((uint32_t (*)(uint32_t, int)) hi_func_addr(17))
+#define c_mem_alloc ((uint32_t (*)(uint32_t, uint32_t, int)) hi_func_addr(17))
 #define c_mem_free_addr ((int (*)(uint32_t)) hi_func_addr(18))
 #define c_mem_get_info ((int (*)(int, int)) hi_func_addr(19))
 #define c_mem_free_all ((int (*)(int)) hi_func_addr(20))
@@ -132,7 +134,7 @@
 
 #define c_sys_reboot ((void (*)(void)) hi_func_addr(39))
 #define c_sys_shutdown ((void (*)(void)) hi_func_addr(40))
-#define c_run_ifexist ((int (*)(char *, int, char **)) hi_func_addr(41))
+#define c_run_ifexist_full ((int (*)(char *, int, char **, uint32_t, uint32_t, uint32_t)) hi_func_addr(41))
 #define c_sys_kinfo ((void (*)(char *)) hi_func_addr(42))
 
 #define c_serial_print ((void (*)(int, char *)) hi_func_addr(43))

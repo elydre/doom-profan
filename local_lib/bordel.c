@@ -185,8 +185,8 @@ int toupper(int c) {
 
 int fseek(FILE *stream, long offset, int whence) {
     // we check if the file is null
-    if (stream == NULL) {
-        printf("stream is null\n");
+    if (stream == stdin || stream == stdout || stream == stderr) { 
+        printf("stream is stdin, stdout or stderr\n");
         return 0;
     }
     // we check the whence
