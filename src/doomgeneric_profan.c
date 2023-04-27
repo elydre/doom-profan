@@ -89,7 +89,7 @@ int DG_GetKey(int* pressed, uint8_t* doomKey) {
     scancode = (uint8_t) c_kb_get_scfh();
     if (scancode == 0) return 0;
 
-    serial_debug("scancode: %d\n", scancode);
+    // serial_debug("scancode: %d\n", scancode);
 
     if (scancode > 127) {
         scancode -= 128;
@@ -103,7 +103,7 @@ int DG_GetKey(int* pressed, uint8_t* doomKey) {
 
     *doomKey = key;
 
-    serial_debug("key: %d, pressed: %d\n", *doomKey, *pressed);
+    // serial_debug("key: %d, pressed: %d\n", *doomKey, *pressed);
 
     return 1;
 }
