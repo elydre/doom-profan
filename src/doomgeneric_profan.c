@@ -74,7 +74,8 @@ void DG_DrawFrame() {
 }
 
 void DG_SleepMs(uint32_t ms) {
-    serial_debug("sleeping for %d ms\n", ms);
+    // serial_debug("sleeping for %d ms\n", ms);
+    c_process_sleep(c_process_get_pid(), ms);
     return;
 }
 
