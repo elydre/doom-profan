@@ -53,6 +53,30 @@ uint8_t convertToDoomKey(uint8_t scancode) {
     case 0x15:
         key = 'y';
         break;
+    case 0x02:
+        key = '1';
+        break;
+    case 0x03:
+        key = '2';
+        break;
+    case 0x04:
+        key = '3';
+        break;
+    case 0x05:
+        key = '4';
+        break;
+    case 0x06:
+        key = '5';
+        break;
+    case 0x07:
+        key = '6';
+        break;
+    case 0x08:
+        key = '7';
+        break;
+    case 0x09:
+        key = '8';
+        break;
     default:
         break;
     }
