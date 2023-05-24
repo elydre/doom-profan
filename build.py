@@ -3,7 +3,7 @@ import os
 CC      = "gcc"
 LD      = "ld"
 
-OUTPUT  = "doom-core"
+OUTPUT  = "doom"
 
 CFLAGS  = "-ffreestanding -fno-exceptions -fno-stack-protector -m32 -I ./profan_zlib -I ./local_lib"
 LDFLAGS = "-T link.ld"
@@ -37,8 +37,6 @@ def main():
 
     entry = compile_file("entry.c", ".")
     link_files(entry, objs)
-
-    link_files(compile_file("launcher.c", "."), "", "doom")
 
     execute_command("rm *.pe")
 

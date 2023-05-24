@@ -68,6 +68,30 @@ uint8_t convertToDoomKey(uint8_t scancode) {
     case 0x15:
         key = 'y';
         break;
+    case 0x02:
+        key = '1';
+        break;
+    case 0x03:
+        key = '2';
+        break;
+    case 0x04:
+        key = '3';
+        break;
+    case 0x05:
+        key = '4';
+        break;
+    case 0x06:
+        key = '5';
+        break;
+    case 0x07:
+        key = '6';
+        break;
+    case 0x08:
+        key = '7';
+        break;
+    case 0x09:
+        key = '8';
+        break;
     default:
         break;
     }
@@ -87,7 +111,8 @@ void DG_DrawFrame() {
 }
 
 void DG_SleepMs(uint32_t ms) {
-    serial_debug("sleeping for %d ms\n", ms);
+    // serial_debug("sleeping for %d ms\n", ms);
+    c_process_sleep(c_process_get_pid(), ms);
     return;
 }
 
@@ -101,7 +126,7 @@ int DG_GetKey(int* pressed, uint8_t* doomKey) {
     scancode = (uint8_t) c_kb_get_scfh();
     if (scancode == 0) return 0;
 
-    serial_debug("scancode: %d\n", scancode);
+    // serial_debug("scancode: %d\n", scancode);
 
     if (scancode > 127) {
         scancode -= 128;
@@ -115,7 +140,7 @@ int DG_GetKey(int* pressed, uint8_t* doomKey) {
 
     *doomKey = key;
 
-    serial_debug("key: %d, pressed: %d\n", *doomKey, *pressed);
+    // serial_debug("key: %d, pressed: %d\n", *doomKey, *pressed);
 
     return 1;
 }
