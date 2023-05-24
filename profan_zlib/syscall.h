@@ -13,7 +13,7 @@
 
 #define c_ckprint(message, color) c_ckprint_at(message, -1, -1, color)
 #define c_kprint_rgb(message, color, bg_color) c_rgb_print_at(message, -1, -1, color, bg_color)
-#define c_kprint(message) c_ckprint(message, c_white)
+#define c_kprint(message) c_ckprint(message, 0x0F)
 
 #define c_run_ifexist(path, argc, argv) c_run_ifexist_full(path, argc, argv, 0, 0, 0)
 
@@ -70,24 +70,6 @@
 #define KB_released_value 128
 #define KB_released(key) (key + KB_released_value)
 
-#define c_blue      0x09
-#define c_green     0x0a
-#define c_cyan      0x0b
-#define c_red       0x0c
-#define c_magenta   0x0d
-#define c_yellow    0x0e
-#define c_grey      0x07
-#define c_white     0x0f
-
-#define c_dblue     0x01
-#define c_dgreen    0x02
-#define c_dcyan     0x03
-#define c_dred      0x04
-#define c_dmagenta  0x05
-#define c_dyellow   0x06
-#define c_dgrey     0x08
-
-
 #define c_fs_get_used_sectors ((uint32_t (*)(void)) hi_func_addr(0))
 #define c_fs_get_sector_count ((uint32_t (*)(void)) hi_func_addr(1))
 #define c_fs_get_element_name ((void (*)(uint32_t, char *)) hi_func_addr(2))
@@ -115,14 +97,8 @@
 #define c_timer_get_ms ((uint32_t (*)(void)) hi_func_addr(22))
 
 #define c_font_get ((uint8_t *(*)(int)) hi_func_addr(23))
-#define c_clear_screen ((void (*)(void)) hi_func_addr(24))
 #define c_ckprint_at ((void (*)(char *, int, int, char)) hi_func_addr(25))
-#define c_kprint_backspace ((void (*)(void)) hi_func_addr(26))
-#define c_set_cursor_offset ((void (*)(int)) hi_func_addr(27))
-#define c_get_cursor_offset ((int (*)(void)) hi_func_addr(28))
-#define c_gt_get_max_rows ((int (*)(void)) hi_func_addr(29))
-#define c_gt_get_max_cols ((int (*)(void)) hi_func_addr(30))
-#define c_cursor_blink ((void (*)(int)) hi_func_addr(31))
+
 #define c_vesa_set_pixel ((void (*)(int, int, uint32_t)) hi_func_addr(32))
 #define c_vesa_get_width ((uint32_t (*)(void)) hi_func_addr(33))
 #define c_vesa_get_height ((uint32_t (*)(void)) hi_func_addr(34))
