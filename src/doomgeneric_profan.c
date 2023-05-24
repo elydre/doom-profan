@@ -14,7 +14,7 @@ window_t *window;
 
 void DG_Init() {
     // wake up the parent process
-    c_process_wakeup(c_process_get_ppid(c_process_get_pid()));
+    // c_process_wakeup(c_process_get_ppid(c_process_get_pid()));
 
     // get the main desktop
     desktop_t *main_desktop = desktop_get_main();
@@ -23,8 +23,6 @@ void DG_Init() {
     window = window_create(main_desktop, "doom generic", 100, 100, DOOMGENERIC_RESX, DOOMGENERIC_RESY, 0, 0, 0);
     desktop_refresh(main_desktop);
 
-    // set the window background to black
-    window_fill(window, 0x000000);
     window_refresh(window);
 }
 
@@ -104,10 +102,10 @@ void DG_DrawFrame() {
     uint32_t pos = 0;
     for (int y = 0; y < DOOMGENERIC_RESY; y++) {
         for (int x = 0; x < DOOMGENERIC_RESX; x++) {
-            window_set_pixel(window, x, y, DG_ScreenBuffer[pos++]);
+            window_display_pixel(window, x, y, DG_ScreenBuffer[pos++]);
         }
     }
-    window_refresh(window);
+    // window_refresh(window);
 }
 
 void DG_SleepMs(uint32_t ms) {
