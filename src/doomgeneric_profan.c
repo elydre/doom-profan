@@ -8,6 +8,7 @@
 #include <bordel.h>
 
 #include <i_libdaube.h>
+#include <i_winadds.h>
 
 window_t *window;
 
@@ -121,7 +122,7 @@ uint32_t DG_GetTicksMs() {
 int DG_GetKey(int* pressed, uint8_t* doomKey) {
     uint8_t scancode, key;
 
-    scancode = (uint8_t) c_kb_get_scfh();
+    scancode = (uint8_t) wadds_get_kb(window);
     if (scancode == 0) return 0;
 
     // serial_debug("scancode: %d\n", scancode);
