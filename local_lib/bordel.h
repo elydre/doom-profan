@@ -17,12 +17,7 @@
 #define SEEK_END 2
 
 // bordel.c
-void init_bordel();
-
 void serial_debug(char *fmt, ...);
-
-int fseek(FILE *stream, long offset, int whence);
-
 int mkdir(const char *pathname, uint32_t mode);
 
 #endif

@@ -1,4 +1,5 @@
 #include <syscall.h>
+#include <filesys.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -183,83 +184,19 @@ int toupper(int c) {
     return c;
 }
 
-int fseek(FILE *stream, long offset, int whence) {
-    // we check if the file is null
-    if (stream == stdin || stream == stdout || stream == stderr) { 
-        printf("stream is stdin, stdout or stderr\n");
-        return 0;
-    }
-    // we check the whence
-    switch (whence) {
-        case SEEK_SET:
-            // we check if the offset is valid
-            if (offset < 0 || offset >= stream->buffer_size) {
-                return 0;
-            }
-            // we set the buffer position
-            stream->buffer_pos = offset;
-            break;
-        case SEEK_CUR:
-            // we set the buffer position
-            stream->buffer_pos += offset;
-            break;
-        case SEEK_END:
-            // we set the buffer position
-            stream->buffer_pos = stream->buffer_size + offset;
-            break;
-        default:
-            return 0;
-    }
-    return 0;
-}
-
 int mkdir(const char *pathname, uint32_t mode) {
-    serial_debug("mkdir: %s\n", (char *) pathname);
-
-    int len = strlen((char *) pathname);
-    char *parent_path = malloc(len + 2);
-    char *dir_name = malloc(len + 2);
-
-    if (pathname[len - 1] == '/') {
-        len--;
+    // if pathname don't start with '/' add it
+    char *tmp = malloc(strlen(pathname) + 2);
+    if (pathname[0] != '/') {
+        tmp[0] = '/';
+        strcpy(tmp + 1, pathname);
+    } else {
+        strcpy(tmp, pathname);
     }
 
-    int i = len - 1;
-    while (pathname[i] != '/') i--;
-    int j = 0;
-    while (j < i) {
-        parent_path[j] = pathname[j];
-        j++;
-    }
-    parent_path[j] = '\0';
-    int k = 0;
-    while (j < len) {
-        dir_name[k] = pathname[j];
-        j++;
-        k++;
-    }
-    dir_name[k] = '\0';
-
-    if (parent_path[0] != '/') {
-        char *tmp = malloc(len + 2);
-        strcpy(tmp, "/");
-        strcat(tmp, parent_path);
-        strcpy(parent_path, tmp);
-        free(tmp);
-    }
-
-    if (dir_name[0] == '/') {
-        char *tmp = malloc(len + 2);
-        strcpy(tmp, dir_name + 1);
-        strcpy(dir_name, tmp);
-        free(tmp);
-    }
-
-    // create directory
-    int ret = c_fs_make_dir(parent_path, dir_name);
-
-    free(parent_path);
-    free(dir_name);
-
-    return ret;
+    serial_debug("mkdir: %s\n", (char *) tmp);
+    sid_t output = fu_dir_create(0, (char *) tmp);
+    serial_debug("mkdir: d%ds%d\n", output.device, output.sector);
+    free(tmp);
+    return IS_NULL_SID(output) ? -1 : 0;
 }
