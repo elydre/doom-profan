@@ -86,13 +86,15 @@ uint8_t convertToDoomKey(uint8_t scancode) {
 
 
 void DG_DrawFrame() {
+    void (*set_pixel)(int, int, uint32_t) = c_vesa_set_pixel;
+
     int pos = 0;
     for (int y = 0; y < DOOMGENERIC_RESY; y++) {
         for (int x = 0; x < DOOMGENERIC_RESX; x++) {
             pos++;
             if (current_screen[pos] == DG_ScreenBuffer[pos]) continue;
             current_screen[pos] = DG_ScreenBuffer[pos];
-            c_vesa_set_pixel(x, y, DG_ScreenBuffer[pos]);
+            set_pixel(x, y, DG_ScreenBuffer[pos]);
         }
     }
 }
