@@ -102,8 +102,6 @@ long M_FileLength(FILE *handle)
     // go back to the old location
     fseek(handle, savedpos, SEEK_SET);
 
-    printf("File length: %d\n", length);
-
     return length;
 }
 

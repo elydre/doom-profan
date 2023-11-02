@@ -17,7 +17,6 @@
 //
 
 #include <stdio.h>
-#include <bordel.h>
 
 #include "m_misc.h"
 #include "w_file.h"
