@@ -88,7 +88,7 @@ uint8_t convertToDoomKey(uint8_t scancode) {
 void DG_DrawFrame() {
     void (*set_pixel)(int, int, uint32_t) = c_vesa_set_pixel;
 
-    int pos = 0;
+    int pos = -1;
     for (int y = 0; y < DOOMGENERIC_RESY; y++) {
         for (int x = 0; x < DOOMGENERIC_RESX; x++) {
             pos++;
