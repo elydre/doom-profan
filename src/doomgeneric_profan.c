@@ -86,7 +86,8 @@ uint8_t convertToDoomKey(uint8_t scancode) {
 
 
 void DG_DrawFrame() {
-    void (*set_pixel)(int, int, uint32_t) = c_vesa_set_pixel;
+    uint32_t *fb = c_vesa_get_fb();
+    uint32_t pitch = c_vesa_get_pitch();
 
     int pos = -1;
     for (int y = 0; y < DOOMGENERIC_RESY; y++) {
@@ -94,7 +95,7 @@ void DG_DrawFrame() {
             pos++;
             if (current_screen[pos] == DG_ScreenBuffer[pos]) continue;
             current_screen[pos] = DG_ScreenBuffer[pos];
-            set_pixel(x, y, DG_ScreenBuffer[pos]);
+            fb[y * pitch + x] = current_screen[pos];
         }
     }
 }
