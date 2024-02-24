@@ -101,7 +101,6 @@ void DG_DrawFrame() {
 }
 
 void DG_SleepMs(uint32_t ms) {
-    // serial_debug("sleeping for %d ms\n", ms);
     c_process_sleep(c_process_get_pid(), ms);
     return;
 }
@@ -116,8 +115,6 @@ int DG_GetKey(int* pressed, uint8_t* doomKey) {
     scancode = (uint8_t) c_kb_get_scfh();
     if (scancode == 0) return 0;
 
-    // serial_debug("scancode: %d\n", scancode);
-
     if (scancode > 127) {
         scancode -= 128;
         *pressed = 0;
@@ -130,13 +127,10 @@ int DG_GetKey(int* pressed, uint8_t* doomKey) {
 
     *doomKey = key;
 
-    // serial_debug("key: %d, pressed: %d\n", *doomKey, *pressed);
-
     return 1;
 }
 
 void DG_SetWindowTitle(const char * title) {
-    serial_debug("setting window title\n");
     return;
 }
 
