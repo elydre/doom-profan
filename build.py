@@ -1,4 +1,11 @@
-import os
+import os, sys
+
+profan_path = "../profanOS"
+if sys.argv[1:]:
+    profan_path = sys.argv[1]
+if not os.path.exists(profan_path):
+    print(f"path {profan_path} does not exist")
+    exit(1)
 
 CC      = "gcc"
 LD      = "ld"
@@ -6,7 +13,7 @@ LD      = "ld"
 OUTPUT  = "doom"
 
 CFLAGS  = "-ffreestanding -fno-exceptions -fno-stack-protector -m32 -I ./profan_zlib -I ./local_lib"
-LDFLAGS = "-T link.ld"
+LDFLAGS = f"-nostdlib -L {profan_path}/out/zlibs -T link.ld -z max-page-size=0x1000 -lc -lm"
 
 OBJDIR  = "build"
 SRCDIR  = "src"
@@ -27,8 +34,7 @@ def compile_file(src, dir = SRCDIR):
     return obj
 
 def link_files(entry, objs, output = OUTPUT):
-    execute_command(f"{LD} {LDFLAGS} -o {output}.pe {entry} {' '.join(objs)}")
-    execute_command(f"objcopy -O binary {output}.pe {output}.bin")
+    execute_command(f"{LD} {LDFLAGS} -o {output}.elf {entry} {' '.join(objs)}")
 
 def main():
     execute_command(f"mkdir -p {OBJDIR}")
@@ -37,8 +43,6 @@ def main():
 
     entry = compile_file("entry.c", ".")
     link_files(entry, objs)
-
-    execute_command("rm *.pe")
 
 if __name__ == "__main__":
     main()
