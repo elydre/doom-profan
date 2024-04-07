@@ -12,7 +12,7 @@ LD      = "ld"
 
 OUTPUT  = "doom"
 
-CFLAGS  = "-ffreestanding -fno-exceptions -fno-stack-protector -m32 -I ./profan_zlib -I ./local_lib -O1"
+CFLAGS  = "-ffreestanding -fno-exceptions -fno-stack-protector -m32 -I ./profan_zlib -I ./local_lib -O1 -nostdinc"
 LDFLAGS = f"-nostdlib -L {profan_path}/out/zlibs -T link.ld -z max-page-size=0x1000 -lc -lm"
 
 OBJDIR  = "build"

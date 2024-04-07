@@ -1,7 +1,7 @@
 #ifndef BORDEL_H
 #define BORDEL_H
 
-#include <type.h>
+#include <stdint.h>
 
 // uintptr_t
 #define uintptr_t unsigned long

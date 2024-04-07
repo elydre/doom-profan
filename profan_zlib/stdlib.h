@@ -1,7 +1,8 @@
 #ifndef STDLIB_ID
 #define STDLIB_ID 1007
 
-#include <type.h>
+#include <profan/type.h>
+#include <stddef.h>
 
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE 1
@@ -16,8 +17,7 @@
 #define malloc_ask(size) malloc_func(size, 1)
 #define realloc_ask(mem, new_size) realloc_func(mem, new_size, 1)
 
-void init_environ_ptr(char **env);
-char **get_environ_ptr(void);
+char **__get_environ_ptr(void);
 void *calloc_func(uint32_t nmemb, uint32_t lsize, int as_kernel);
 void free(void *mem);
 void *malloc_func(uint32_t size, int as_kernel);
@@ -87,6 +87,7 @@ int setenv(const char *name, const char *value, int replace);
 int unsetenv(const char *name);
 int clearenv(void);
 int putenv(char *string);
+void srand(unsigned int seed);
 void srand48(long seedval);
 int srand48_r(long int seedval, struct drand48_data *buffer);
 double strtod(char *str, char **ptr);

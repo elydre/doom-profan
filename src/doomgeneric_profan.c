@@ -4,7 +4,7 @@
 #include "m_argv.h"
 #include "doomgeneric.h"
 
-#include <syscall.h>
+#include <profan/syscall.h>
 #include <bordel.h>
 
 uint32_t *current_screen;
