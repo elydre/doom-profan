@@ -20,6 +20,7 @@ jobs:
     - name: build profanOS disk
       run: |
         git clone https://github.com/elydre/profanOS.git
+        python3 tools/addons.py libm
         cd profanOS
         make disk
         cd ..
