@@ -90,12 +90,15 @@ void DG_DrawFrame() {
     uint32_t pitch = c_vesa_get_pitch();
 
     int pos = -1;
-    for (int y = 0; y < DOOMGENERIC_RESY; y++) {
-        for (int x = 0; x < DOOMGENERIC_RESX; x++) {
+    for (int y = 0; y < DOOMGENERIC_RESY * 2; y += 2) {
+        for (int x = 0; x < DOOMGENERIC_RESX * 2; x += 2) {
             pos++;
             if (current_screen[pos] == DG_ScreenBuffer[pos]) continue;
             current_screen[pos] = DG_ScreenBuffer[pos];
             fb[y * pitch + x] = current_screen[pos];
+            fb[y * pitch + x + 1] = current_screen[pos];
+            fb[(y + 1) * pitch + x] = current_screen[pos];
+            fb[(y + 1) * pitch + x + 1] = current_screen[pos];
         }
     }
 }
