@@ -86,8 +86,8 @@ uint8_t convertToDoomKey(uint8_t scancode) {
 
 
 void DG_DrawFrame() {
-    uint32_t *fb = c_vesa_get_fb();
-    uint32_t pitch = c_vesa_get_pitch();
+    uint32_t *fb = syscall_vesa_fb();
+    uint32_t pitch = syscall_vesa_pitch();
 
     int pos = -1;
     for (int y = 0; y < DOOMGENERIC_RESY * 2; y += 2) {
@@ -104,18 +104,18 @@ void DG_DrawFrame() {
 }
 
 void DG_SleepMs(uint32_t ms) {
-    c_process_sleep(c_process_get_pid(), ms);
+    syscall_process_sleep(syscall_process_pid(), ms);
     return;
 }
 
 uint32_t DG_GetTicksMs() {
-    return c_timer_get_ms();
+    return syscall_timer_get_ms();
 }
 
 int DG_GetKey(int* pressed, uint8_t* doomKey) {
     uint8_t scancode, key;
 
-    scancode = (uint8_t) c_kb_get_scfh();
+    scancode = (uint8_t) syscall_sc_get();
     if (scancode == 0) return 0;
 
     if (scancode > 127) {

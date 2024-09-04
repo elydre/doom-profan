@@ -94,8 +94,7 @@ int mkdir(const char *pathname, uint32_t mode) {
         strcpy(tmp, pathname);
     }
 
-    sid_t output = fu_dir_create(0, (char *) tmp);
-    serial_debug("mkdir: %s -> d%ds%d\n", tmp, output.device, output.sector);
+    uint32_t output = fu_dir_create(0, (char *) tmp);
     free(tmp);
-    return IS_NULL_SID(output) ? -1 : 0;
+    return output ? 0 : -1;
 }
