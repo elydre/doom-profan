@@ -94,6 +94,11 @@ int mkdir(const char *pathname, uint32_t mode) {
         strcpy(tmp, pathname);
     }
 
+    if (fu_path_to_sid(SID_ROOT, tmp)) {
+        free(tmp);
+        return 0;
+    }
+
     uint32_t output = fu_dir_create(0, (char *) tmp);
     free(tmp);
     return output ? 0 : -1;
