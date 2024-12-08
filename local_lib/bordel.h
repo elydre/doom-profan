@@ -3,9 +3,6 @@
 
 #include <stdint.h>
 
-// uintptr_t
-#define uintptr_t unsigned long
-
 // bordel.c
 int mkdir(const char *pathname, uint32_t mode);
 
